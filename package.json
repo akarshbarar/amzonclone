@@ -9,9 +9,14 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "@nuxtjs/axios": "^5.12.2",
     "core-js": "^3.6.5",
-    "nuxt": "^2.14.6"
+    "nuxt": "^2.14.6",
+    "nuxt-material-design-icons": "^1.0.4",
+    "vue-material": "^1.0.0-beta-15",
+    "vuetify": "^2.3.13"
   },
   "devDependencies": {}
 }
