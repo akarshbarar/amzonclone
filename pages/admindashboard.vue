@@ -72,6 +72,7 @@ export default {
       return {
           title:'',
           description:'',
+          imagelink:'',
           rate:'',
           price:''
       }
