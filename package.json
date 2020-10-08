@@ -13,6 +13,7 @@
     "@material-ui/icons": "^4.9.1",
     "@nuxtjs/axios": "^5.12.2",
     "core-js": "^3.6.5",
+    "firebase": "^7.22.1",
     "nuxt": "^2.14.6",
     "nuxt-material-design-icons": "^1.0.4",
     "vue-material": "^1.0.0-beta-15",

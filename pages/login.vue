@@ -44,7 +44,7 @@ export default {
   head: {
     title: 'Amazon Login | Akarsh',
     meta: [
-      { hid: 'description', name: 'description', content: 'Amazon clone Nuxt Login Page' }
+      { name: 'description', content: 'Amazon clone Nuxt Login Page' }
     ],
   
   },
@@ -125,4 +125,6 @@ export default {
     border: 1px solid;
     border-color:  darkgrey;
 }
+
+
 </style>
