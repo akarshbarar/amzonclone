@@ -9,7 +9,7 @@
 
             <div class="login__container">
                 <h1>Sign In</h1>
-                <form>
+                <form @submit.prevent="signin">
                     <h5>E-Mail</h5>
                     <input 
                         type="email" 
@@ -39,7 +39,10 @@
 </template>
 
 <script>
+
+import db from '../middleware/firebase'
 export default {
+
 
   head: {
     title: 'Amazon Login | Akarsh',
@@ -56,6 +59,21 @@ export default {
   },
   methods:{
       signin:function(){
+             db.auth().signInWithEmailAndPassword(this.email,this.password).then((e)=>{
+            console.log("Signed IN")
+             this.$store.commit('setUser',e.user.displayName)
+             this.$router.push({ path: '/' })
+
+        }).catch((err)=>{
+            if(err){
+                console.error(err)
+                alert(err.message)
+            }
+            else{
+                console.log("Signed....IN")
+            }
+        })
+
 
       }
   }

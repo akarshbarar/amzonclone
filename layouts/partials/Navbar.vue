@@ -20,9 +20,10 @@
                     <div class="header__option">
                        
                       
-                        <span class="header__optionLineOne">Hello,Guest </span>
+                        <span class="header__optionLineOne">Hello,{{user}} </span>
                         
-                                       <span class="header__optionLineTwo">Sign In</span>
+                         <span class="header__optionLineTwo" v-if="user==null">Sign In</span>
+                         <span class="header__optionLineTwo" v-else @click.prevent="signout">Sign Out</span>
                        
                     </div>
                 </nuxt-link>
@@ -48,7 +49,7 @@
                         <!-- {/* BASKET ICON */} -->
                         <!-- {/* NUMBER OF ITEM */} -->
                         <i class="material-icons md-18">add_shopping_cart</i>
-                        <span class="header__optionLineTwo header__basketCount">0</span>
+                        <span class="header__optionLineTwo header__basketCount">{{cart.length}}</span>
                     </div>
                 </nuxt-link>
 
@@ -58,8 +59,28 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import db from '../../middleware/firebase'
+
 export default {
-   
+    
+    computed:{
+        ...mapState({
+            user:state=>state.user,
+            cart:state=>state.cart
+        })
+    },
+    methods:{
+        signout:function(){
+        db.auth().signOut().then(function() {
+            console.log('Signed Out');
+
+          }, function(error) {
+            console.error('Sign Out Error', error);
+          });
+          this.$store.commit('setUser',null)
+        }
+    }
 }
 </script>
 

@@ -11,13 +11,21 @@
                 </div>
             </div>  
             <img :src="block.imageLink" :alt="image"/>
-            <button >Add to Cart</button>
+            <button @click.prevent="addToBasket">Add to Cart</button>
         </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
 
+  computed:{
+        ...mapState({
+            user:state=>state.user,
+            
+        })
+    },
     props: {
         block: Object
     },
@@ -26,7 +34,24 @@ export default {
             image:"ALT TEXT"
         }
     },
-    name:'Product'
+    name:'Product',
+    methods:{
+        addToBasket:function(){
+                if(this.user==null){
+                    alert("Please Login First")
+                    this.$router.push({ path: '/login' })
+
+                }else{
+                let cart={
+                            title:this.block.title,
+                            image:this.block.imageLink,
+                            rate:this.block.rate,
+                            price:this.block.price,
+                        };
+                    this.$store.commit('addToCart',cart)
+            }
+        }
+    }
 
 }
 </script>

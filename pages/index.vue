@@ -9,24 +9,6 @@
               <template v-for="block in content">
                 <component :is="block.component" :block="block" :key="block.uid"></component>
               </template>
-              <!-- {/* JSX JavaScript with XML */}       -->
-                <!-- {
-                    data.map((product)=>{
-                        return (
-                            <div>
-                                
-                            <Product 
-                                    title={product.title}
-                                    price={product.price}
-                                    rating={product.rate}
-                                    image={product.imageLink} />
-
-
-                            </div>
-                        )
-                    })
-                } -->
-
            </div>
          
         </div>
@@ -61,6 +43,9 @@ export default {
   },
   
    created() {
+                 
+      this.$store.commit('setAdmin',null)
+
        db.database().ref("Amazon_Items").on('value',(snap)=>{
             let products = snap.val();
             let newProduct=[];
@@ -78,10 +63,6 @@ export default {
                 );
             }
               this.content=newProduct
-               console.log('====================================');
-              console.log(this.content);
-              console.log('====================================');
-            
         }) 
   }
  
