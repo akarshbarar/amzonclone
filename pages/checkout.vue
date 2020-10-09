@@ -47,6 +47,9 @@ import { mapMutations } from 'vuex'
 
 import Header from '../layouts/partials/Navbar'
 import HeaderTwo from '../layouts/partials/HeaderTwo'
+
+import { loadStripe } from "@stripe/stripe-js";
+import data from './keys.json';
 export default {
  components:{
     Header,
@@ -56,6 +59,7 @@ export default {
   data(){
       return {
           payprice:0
+         
       }
   },
    computed:{
@@ -65,10 +69,22 @@ export default {
         })
     },
     created(){
-
         this.cart.forEach(element => {
             this.payprice+=parseInt(element.price)
         });
+        console.log('====================================');
+        console.log(this.$route.query.page);
+        console.log('====================================');
+
+        // const query = new URLSearchParams(window.location.search);
+
+        if (this.$route.query.page.success==true) {
+            this.$router.push({ path: '/confirm' })
+        }
+
+        if (this.$route.query.page.success==false) {
+            this.$router.push({ path: '/cancelled' })
+        }
     },
     methods:{
        
@@ -89,8 +105,39 @@ export default {
             this.$store.commit('removeFromCart',newcart)
 
         },
-        pay:function(){
+        pay:async function(){
+        const stripePromise = loadStripe(data.KEY);
 
+                console.log("CLICKED HANDLED CLICK")
+                const stripe = await stripePromise;
+
+                
+                const response = await fetch(`https://amaubackend.herokuapp.com/create-session/${this.payprice}`, {
+
+                method: "POST",
+                });
+
+                console.log(response)
+                const session = await response.json();
+
+                // When the customer clicks on the button, redirect them to Checkout.
+
+                const result = await stripe.redirectToCheckout({
+
+                sessionId: session.id,
+
+                });
+
+                if (result.error) {
+
+                    // If `redirectToCheckout` fails due to a browser or network
+
+                    // error, display the localized error message to your customer
+
+                    // using `result.error.message`.
+                    console.log(result.error)
+
+                }
         }
     }
 
