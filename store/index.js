@@ -18,5 +18,8 @@ export const state = () => ({
       },
       addToCart(state,data){
         state.cart.push(data)
+      },
+      removeFromCart(state,data){
+        state.cart=data
       }
   }

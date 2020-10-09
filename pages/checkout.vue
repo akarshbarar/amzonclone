@@ -1,50 +1,50 @@
 <template>
-          <div class="checkout">
-               <Header/>
+<div>
+         <Header/>
          <HeaderTwo/>
+          <div class="checkout">
+             
 
             <div class="checkout_price">
 
-            <!-- {
-                cartReducer.length>0
-                ?<div >
-                    Buy Items<button class="checkout_PageButton" onClick={handleClick}>Pay Rs {price}</button>
+           
+                <div v-if="cart.length > 0" >
+                    Buy Items<button class="checkout_PageButton" @click.prevent="pay">Pay Rs {{payprice}} </button>
                 </div>
-                :<div>
+                <div v-else>
                     <h6>Please Buy something</h6>
                 </div>
-            } -->
+            
             </div>
             <div class="checkout__page">
-                <!-- {
-                    cartReducer.length>0
-                        ?<div class="checkout_PageData">
+               
+                        <div class="checkout_PageData" v-if="cart.length > 0">
 
-                            {
-                                cartReducer.map((product)=>(
-                                    <div class="checkout__data">
-                                        <h1>Title::{product.title}</h1>
-                                        <h2>Rate::{product.rate}</h2>
-                                        <h3>Price::{product.price}</h3>
-                                        <img src={product.image} alt=""/>
-                                        <button onClick={()=>remove(`${product.title}`)}>Remove From Cart</button>
-
-                                    </div>
-                                ))
-                            }
+                          
+                                    <div class="checkout__data" v-for="product in cart" :key="product">
+                                        <h1>Title::{{product.title}}</h1>
+                                        <h2>Rate::{{product.rate}}</h2>
+                                        <h3>Price::{{product.price}}</h3>
+                                        <img :src="product.image" :alt="abc"/>
+                                        <button @click.prevent="remove(`${product.title}`)" >Remove From Cart</button>                             
+                                     </div>
                         </div>
-                        :<div>
+                        <div v-else>
                             <h1>Your cart is empty</h1>
                         </div>
-                } -->
+                
             </div>
           
 
 
      </div>
+</div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { mapMutations } from 'vuex'
+
 import Header from '../layouts/partials/Navbar'
 import HeaderTwo from '../layouts/partials/HeaderTwo'
 export default {
@@ -52,7 +52,48 @@ export default {
     Header,
     HeaderTwo
 
-  }
+  },
+  data(){
+      return {
+          payprice:0
+      }
+  },
+   computed:{
+        ...mapState({
+            user:state=>state.user,
+            cart:state=>state.cart
+        })
+    },
+    created(){
+
+        this.cart.forEach(element => {
+            this.payprice+=parseInt(element.price)
+        });
+    },
+    methods:{
+       
+        remove:function(product){
+            this.payprice=0;
+            console.log(product)
+            let newcart=[];
+                for(let i in this.cart){
+                    if(this.cart[i].title!=product){
+                       newcart.push(this.cart[i])
+                      this.payprice+=parseInt(this.cart[i].price)
+
+                    }
+                }
+                console.log(newcart)
+            
+            
+            this.$store.commit('removeFromCart',newcart)
+
+        },
+        pay:function(){
+
+        }
+    }
+
 }
 </script>
 
