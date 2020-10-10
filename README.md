@@ -1,4 +1,11 @@
-# amazonnuxt
+## Hi there this is Akarsh Barar
+This is a Amazon Clone using NuxtJs and Nodejs as backend for payement I have used Stripe.
+Link of site is:
+https://amzonclone.vercel.app/
+
+Follow me on [Github](https://github.com/akarshbarar)
+Follow me on [Instagram](https://www.instagram.com/mycodecave/)
+Follow me on [Twitter](https://twitter.com/CodeCave2)
 
 ## Build Setup
 
