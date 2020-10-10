@@ -72,19 +72,18 @@ export default {
         this.cart.forEach(element => {
             this.payprice+=parseInt(element.price)
         });
-        console.log('====================================');
-        console.log(this.$route.query.page);
-        console.log('====================================');
 
-        // const query = new URLSearchParams(window.location.search);
-
-        if (this.$route.query.page.success==true) {
+        if (this.$route.params.success==true) {
             this.$router.push({ path: '/confirm' })
         }
-
-        if (this.$route.query.page.success==false) {
+        
+        if (this.$route.params.success==false) {
             this.$router.push({ path: '/cancelled' })
         }
+        else{
+            console.log("NO QUERY FOUND")
+        }
+        
     },
     methods:{
        
