@@ -52,6 +52,8 @@
 </template>
 
 <script>
+import db from '../middleware/firebase'
+
 export default {
 head: {
     title: 'Amazon Register | Akarsh',
@@ -71,6 +73,39 @@ head: {
   methods:{
       signup:function(){
 
+        
+        db.auth()
+        .createUserWithEmailAndPassword(this.email,this. password)
+        .then((e)=>{
+            console.log("SIGNED IN");
+            e.user.updateProfile({
+                displayName: this.name
+            });
+                                this.$store.commit('setUser',this.name)
+
+            console.log(e)
+
+            db.database().ref("Users").child(e.user.uid).set({
+                "name":this.name,
+                "email":this.email,
+                "password":this.password,
+                "uid":e.user.uid
+            },(err)=>{
+                if(err){
+                    console.error(err);
+                }
+                else{
+                    console.log("DATA SAVED")
+                     this.$router.push({ path: '/' })
+                    
+                }
+            })
+        })
+        .catch(function(error) {
+            // Handle Errors here.
+            alert(error.message);
+            // ...
+          });
       }
   }
 }

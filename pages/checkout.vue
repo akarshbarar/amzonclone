@@ -73,11 +73,11 @@ export default {
             this.payprice+=parseInt(element.price)
         });
 
-        if (this.$route.params.success==true) {
+        if (this.$route.query.transaction=='done') {
             this.$router.push({ path: '/confirm' })
         }
         
-        if (this.$route.params.success==false) {
+        if (this.$route.query.transaction=='notdone') {
             this.$router.push({ path: '/cancelled' })
         }
         else{

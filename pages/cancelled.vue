@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="cancel">
       <Header/>
-      <HeaferTwo/>
+      <HeaderTwo/>
       <h1>Order cancelled</h1>
   </div>
 </template>
@@ -20,5 +20,7 @@ components:{
 </script>
 
 <style>
-
+.cancel{
+background-color:#fff;
+}
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="confirm">
       <Header/>
-      <HeaferTwo/>
-      <h1>Order confirmed</h1>
+      <HeaderTwo/>
+      <h1>Order confirmed. You are Logged Out Automatically.</h1>
   </div>
 </template>
 
@@ -20,5 +20,8 @@ components:{
 </script>
 
 <style>
+.confirm{
 
+background-color:#fff;
+}
 </style>
